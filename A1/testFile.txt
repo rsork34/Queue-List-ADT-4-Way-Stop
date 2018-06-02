@@ -1,0 +1,8 @@
+N F 1
+S   F 6
+E L 2
+W F  2
+W R 3
+     
+W R  8
+W     L 3
