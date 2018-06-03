@@ -17,8 +17,11 @@ int main(int argc, char ** argv)
   char buffer[50];
   FILE * fp = NULL;
 
-  // List of cars to be read into
-  List * carList = NULL;
+  // List of cars to be read into for each lane
+  List * carListNorth = NULL;
+  List * carListEast  = NULL;
+  List * carListSouth = NULL;
+  List * carListWest  = NULL;
 
   // Global time, car counter, and ave wait time
   float counter = 0.0;
@@ -40,7 +43,11 @@ int main(int argc, char ** argv)
   void (*printFunction)(void * data) = &printCarData;
   void (*deleteFunction)(void *toBeDeleted) = &deleteCar;
   int (*compareFunction)(const void *first,const void *second) = &compareCars;
-  carList = initializeList(printFunction, deleteFunction, compareFunction);
+
+  carListNorth = initializeList(printFunction, deleteFunction, compareFunction);
+  carListEast = initializeList(printFunction, deleteFunction, compareFunction);
+  carListSouth = initializeList(printFunction, deleteFunction, compareFunction);
+  carListWest = initializeList(printFunction, deleteFunction, compareFunction);
 
   // Open file from command line for reading
   fp = fopen(argv[1], "r");
@@ -60,22 +67,49 @@ int main(int argc, char ** argv)
     {
       // Add cars based on arrival time -> earlier is first
       Node * tempNode = initializeNode((void*)newCar);
-      insertSorted(carList, tempNode);
+
+      // Add car to the list depending on direction it is arriving from
+      if (newCar->comingFrom[0] == 'N')
+      {
+        insertSorted(carListNorth, tempNode);
+      }
+      else if (newCar->comingFrom[0] == 'E')
+      {
+        insertSorted(carListEast, tempNode);
+      }
+      else if (newCar->comingFrom[0] == 'S')
+      {
+        insertSorted(carListSouth, tempNode);
+      }
+      else
+      {
+        insertSorted(carListWest, tempNode);
+      }
     }
   }
   // Close the input file
   fclose(fp);
 
-  // Take list and initialize the queue
-  Queue * carQueue = create(carList);
+  // Take lists and initialize the queues for each lane
+  Queue * carQueueNorth = create(carListNorth);
+  Queue * carQueueEast = create(carListEast);
+  Queue * carQueueSouth = create(carListSouth);
+  Queue * carQueueWest = create(carListWest);
+
+  // Set up an array of the 4 lanes
+  Queue * carQueueArray[4];
+  carQueueArray[0] = carQueueNorth;
+  carQueueArray[1] = carQueueEast;
+  carQueueArray[2] = carQueueSouth;
+  carQueueArray[3] = carQueueWest;
 
   printf("\nCars gone, in order:\n");
 
   // Go through each car in the queue
-  while(!isEmpty(carQueue))
+  while(!isEmpty(carQueueArray[0]) && !isEmpty(carQueueArray[1]) && !isEmpty(carQueueArray[2]) && !isEmpty(carQueueArray[3]))
   {
     // Determine which car is going to turn, if any
-    Node * curNode = getTurn(carQueue->theList, counter);
+    Node * curNode = getTurn(carQueueArray[0], carQueueArray[1], carQueueArray[2], carQueueArray[3], counter);
 
     // A car is ready to go in the queue
     if (curNode)
@@ -92,7 +126,7 @@ int main(int argc, char ** argv)
       printCarData((void*)curNode); // Print data
       waitPerLane(curNode, lanes, counter); // Increase counter for each lane
       moveCar(curNode, &counter); // Increase counter
-      dequeue(carQueue); // Remove car from front of queue
+      //dequeue(carQueue); // Remove car from front of queue
 
       // Increment car counter
       carCounter++;
@@ -105,7 +139,7 @@ int main(int argc, char ** argv)
   }
 
   // Free the queue
-  destroy(carQueue);
+  //destroy(carQueue);
 
   printStats(lanes, counter, maxWait, carCounter);
   return 0;

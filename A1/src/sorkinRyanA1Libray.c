@@ -132,21 +132,272 @@ Car *makeCar(char * data)
     return NULL;
   }
 
+  newCar->waitTime = 0;
   return newCar;
 }
 
-Node *getTurn(List * list, float counter)
+Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter)
 {
-  Node * curNode = (Node*)list->head;
-  Car * curCar = (Car*)curNode->data;
+  Node * nodeN = (Node*)northQueue->theList->head;
+  Node * nodeE = (Node*)eastQueue->theList->head;
+  Node * nodeS = (Node*)southQueue->theList->head;
+  Node * nodeW = (Node*)westQueue->theList->head;
 
-  // Car in front of queue has arrived, it is their turn
-  if(counter >= curCar->arrivalTime)
+  // If there are 4 cars in the intersection going at once
+  // North goes
+  if (nodeN && nodeE && nodeS && nodeW)
   {
-    return list->head;
+    Car * carN = (Car*)nodeN->data;
+    Car * carE = (Car*)nodeE->data;
+    Car * carS = (Car*)nodeS->data;
+    Car * carW = (Car*)nodeW->data;
+
+    // All 4 cars arrived at the same time and can currently go
+    if (carN->waitTime == carE->waitTime &&
+        carE->waitTime == carS->waitTime &&
+        carS->waitTime == carW->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeN;
+    }
   }
 
-  // Next car to go has not arrived yet
+  /* Cases for 3 cars arriving at the same time */
+  // North, East, and South, North goes
+  if (nodeN && nodeE && nodeS)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carE = (Car*)nodeE->data;
+    Car * carS = (Car*)nodeS->data;
+
+    if (carN->waitTime == carE->waitTime &&
+        carE->waitTime == carS->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeN;
+    }
+  }
+
+  // North, East, and West, West goes
+  if (nodeN && nodeE && nodeW)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carE = (Car*)nodeE->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carN->waitTime == carE->waitTime &&
+        carE->waitTime == carW->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeW;
+    }
+  }
+
+  // North, South, and West, South goes
+  if (nodeN && nodeS && nodeW)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carS = (Car*)nodeS->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carN->waitTime == carS->waitTime &&
+        carS->waitTime == carW->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeS;
+    }
+  }
+
+  // East, South, and West, East goes
+  if (nodeE && nodeS && nodeW)
+  {
+    Car * carE = (Car*)nodeE->data;
+    Car * carS = (Car*)nodeS->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carE->waitTime == carS->waitTime &&
+        carS->waitTime == carW->waitTime &&
+        carE->arrivalTime <= counter)
+    {
+      return nodeE;
+    }
+  }
+
+  /* For if 2 cars arrive at the same time */
+  // North, South
+  if (nodeN && nodeS)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carS = (Car*)nodeS->data;
+
+    if (carN->waitTime == carS->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      // If both cars are going straight, North car goes first
+      if (carN->direction[0] == 'F' && carS->direction[0] == 'F')
+      {
+        return nodeN;
+      }
+      // North going straight, South turning, North goes
+      else if (carN->direction[0] == 'F' && carS->direction[0] != 'F')
+      {
+        return nodeN;
+      }
+      // South going straight, North turning, South goes
+      else if (carS->direction[0] == 'F' && carN->direction[0] != 'F')
+      {
+        return nodeS;
+      }
+    }
+  }
+
+  // East, West
+  if (nodeE && nodeW)
+  {
+    Car * carE = (Car*)nodeE->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carE->waitTime == carW->waitTime &&
+        carE->arrivalTime <= counter)
+    {
+      // If both cars are going straight, East car goes first
+      if (carE->direction[0] == 'F' && carW->direction[0] == 'F')
+      {
+        return nodeE;
+      }
+      // East going straight, West turning, East goes
+      else if (carE->direction[0] == 'F' && carW->direction[0] != 'F')
+      {
+        return nodeE;
+      }
+      // West going straight, East turning, West goes
+      else if (carW->direction[0] == 'F' && carE->direction[0] != 'F')
+      {
+        return nodeW;
+      }
+    }
+  }
+
+  // North and East, North goes
+  if (nodeN && nodeE)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carE = (Car*)nodeE->data;
+
+    if (carN->waitTime == carE->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeN;
+    }
+  }
+
+  // North and West, West goes
+  if (nodeN && nodeW)
+  {
+    Car * carN = (Car*)nodeN->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carN->waitTime == carW->waitTime &&
+        carN->arrivalTime <= counter)
+    {
+      return nodeW;
+    }
+  }
+
+  // East and South, East goes
+  if (nodeE && nodeS)
+  {
+    Car * carE = (Car*)nodeE->data;
+    Car * carS = (Car*)nodeS->data;
+
+    if (carE->waitTime == carS->waitTime &&
+        carE->arrivalTime <= counter)
+    {
+      return nodeE;
+    }
+  }
+
+  // South and West, South goes
+  if (nodeS && nodeW)
+  {
+    Car * carS = (Car*)nodeS->data;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carS->waitTime == carW->waitTime &&
+        carS->arrivalTime <= counter)
+    {
+      return nodeS;
+    }
+  }
+
+  // If there is at least 1 car waiting to go
+  if (nodeN || nodeE || nodeS || nodeW)
+  {
+    float maxWait = 0;
+    char going;
+
+    /* Determine which car has been waiting longest */
+    if (nodeN)
+    {
+      Car * carN = (Car*)nodeN->data;
+
+      if (maxWait < carN->waitTime)
+      {
+        maxWait = carN->waitTime;
+        going = 'N';
+      }
+    }
+    if (nodeE)
+    {
+      Car * carE = (Car*)nodeE->data;
+
+      if (maxWait < carE->waitTime)
+      {
+        maxWait = carE->waitTime;
+        going = 'E';
+      }
+    }
+    if (nodeS)
+    {
+      Car * carS = (Car*)nodeS->data;
+
+      if (maxWait < carS->waitTime)
+      {
+        maxWait = carS->waitTime;
+        going = 'S';
+      }
+    }
+    if (nodeW)
+    {
+      Car * carW = (Car*)nodeW->data;
+
+      if (maxWait < carW->waitTime)
+      {
+        maxWait = carW->waitTime;
+        going = 'W';
+      }
+    }
+
+    if (going == 'N')
+    {
+      return nodeN;
+    }
+    else if (going == 'E')
+    {
+      return nodeE;
+    }
+    else if (going == 'S')
+    {
+      return nodeS;
+    }
+    else if (going == 'W')
+    {
+      return nodeW;
+    }
+
+  }
+
+  // No car is ready to travel
   return NULL;
 }
 

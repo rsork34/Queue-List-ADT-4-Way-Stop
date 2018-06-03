@@ -21,6 +21,7 @@ typedef struct car{
     char comingFrom[2]; // Direction car is coming from (N, E, S, W)
     char direction[2]; // Direction car is going (F, R, L)
     float arrivalTime; // Time the car arrived in the queue
+    float waitTime;
     float travelTime; // Time it takes for car to travel
 } Car;
 
@@ -51,11 +52,11 @@ Car *makeCar(char * data);
 
 /** Determines if the next car in the queue is ready
 *   to cross the intersection, depends on current time
-*@param the list of cars, in order of FIFO
+*@param 4 Queues for the lanes in an array
 *@param the current simulation time
-*@return a pointer to the next node in the list, or NULL
+*@return a pointer to the car whos turn it is
 **/
-Node *getTurn(List * list, float counter);
+Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter);
 
 /** "Move" the car across the intersection and increase the simulation
 *   timer depending on the direction the car went
