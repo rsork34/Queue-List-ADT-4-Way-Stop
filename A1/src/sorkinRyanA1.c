@@ -106,7 +106,7 @@ int main(int argc, char ** argv)
   printf("\nCars gone, in order:\n");
 
   // Go through each car in the queue
-  while(!isEmpty(carQueueArray[0]) && !isEmpty(carQueueArray[1]) && !isEmpty(carQueueArray[2]) && !isEmpty(carQueueArray[3]))
+  while(!isEmpty(carQueueArray[0]) || !isEmpty(carQueueArray[1]) || !isEmpty(carQueueArray[2]) || !isEmpty(carQueueArray[3]))
   {
     // Determine which car is going to turn, if any
     Node * curNode = getTurn(carQueueArray[0], carQueueArray[1], carQueueArray[2], carQueueArray[3], counter);
@@ -121,7 +121,7 @@ int main(int argc, char ** argv)
       {
         maxWait = counter - curCar->arrivalTime;
       }
-
+      updateWaitTime(carQueueArray[0], carQueueArray[1], carQueueArray[2], carQueueArray[3], counter);
       // Move the car and print out its details
       printCarData((void*)curNode); // Print data
       waitPerLane(curNode, lanes, counter); // Increase counter for each lane
@@ -155,8 +155,11 @@ int main(int argc, char ** argv)
     }
   }
 
-  // Free the queue
-  //destroy(carQueue);
+  // Free each queue
+  destroy(carQueueNorth);
+  destroy(carQueueEast);
+  destroy(carQueueSouth);
+  destroy(carQueueWest);
 
   printStats(lanes, counter, maxWait, carCounter);
   return 0;

@@ -87,6 +87,7 @@ Car *makeCar(char * data)
   Car * newCar = malloc(sizeof(struct car));
   newCar->comingFrom[0] = tok[0];
   newCar->comingFrom[1] = '\0';
+  newCar->waitTime = 0;
 
   // Get the next token and check that info is still valid
   // If no tokens were found return NULL
@@ -132,18 +133,18 @@ Car *makeCar(char * data)
     return NULL;
   }
 
-  newCar->waitTime = 0;
+
   return newCar;
 }
 
 Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter)
 {
-  Node * nodeN; = (Node*)northQueue->theList->head;
-  Node * nodeE; = (Node*)eastQueue->theList->head;
-  Node * nodeS; = (Node*)southQueue->theList->head;
-  Node * nodeW; = (Node*)westQueue->theList->head;
+  Node * nodeN;
+  Node * nodeE;
+  Node * nodeS;
+  Node * nodeW;
 
-  // Check that valid queues were passedin, and set
+  // Check that valid queues were passed in, and set
   // the current node from each queue
   if (northQueue && northQueue->theList)
   {
@@ -352,11 +353,12 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
   // If there is at least 1 car waiting to go
   if (nodeN || nodeE || nodeS || nodeW)
   {
+    // If there is just 1 car ready to go
     float maxWait = 0;
     char going;
 
     /* Determine which car has been waiting longest */
-    if (nodeN)
+    if (nodeN && nodeN->data)
     {
       Car * carN = (Car*)nodeN->data;
 
@@ -366,7 +368,7 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
         going = 'N';
       }
     }
-    if (nodeE)
+    if (nodeE && nodeE->data)
     {
       Car * carE = (Car*)nodeE->data;
 
@@ -376,7 +378,7 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
         going = 'E';
       }
     }
-    if (nodeS)
+    if (nodeS && nodeS->data)
     {
       Car * carS = (Car*)nodeS->data;
 
@@ -386,7 +388,7 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
         going = 'S';
       }
     }
-    if (nodeW)
+    if (nodeW && nodeW->data)
     {
       Car * carW = (Car*)nodeW->data;
 
@@ -430,17 +432,13 @@ void moveCar(Node * node, float * counter)
 
   // If the next car is coming from the same direction
   // Add a second to the time for it to move up
-  if (node->next)
+  if (node->next && node->next->data)
   {
     // Next car in queue
     Node * nextNode = (Node*)node->next;
     Car * nextCar = (Car*)nextNode->data;
 
-    // If it is from the same direction add a second
-    if (car->comingFrom[0] == nextCar->comingFrom[0])
-    {
-      *counter += 1.0;
-    }
+    nextCar->waitTime += car->travelTime - 1;
   }
 }
 
@@ -539,8 +537,47 @@ void updateWaitTime(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Q
   Node * nodeS;
   Node * nodeW;
 
-  if (northQueue && northQueue->theList)
+  if (northQueue != NULL && northQueue->front)
   {
     nodeN = northQueue->front;
+    Car * carN = (Car*)nodeN->data;
+
+    if (carN && counter >= carN->arrivalTime)
+    {
+      carN->waitTime = counter - carN->arrivalTime;
+    }
+  }
+
+  if (eastQueue != NULL && eastQueue->front)
+  {
+    nodeE = eastQueue->front;
+    Car * carE = (Car*)nodeE->data;
+
+    if (carE && counter >= carE->arrivalTime)
+    {
+      carE->waitTime = counter - carE->arrivalTime;
+    }
+  }
+
+  if (southQueue != NULL && southQueue->front)
+  {
+    nodeS = southQueue->front;
+    Car * carS = (Car*)nodeS->data;
+
+    if (carS && counter >= carS->arrivalTime)
+    {
+      carS->waitTime = counter - carS->arrivalTime;
+    }
+  }
+
+  if (westQueue != NULL && westQueue->front)
+  {
+    nodeW = westQueue->front;
+    Car * carW = (Car*)nodeW->data;
+
+    if (carW && counter >= carW->arrivalTime)
+    {
+      carW->waitTime = counter - carW->arrivalTime;
+    }
   }
 }
