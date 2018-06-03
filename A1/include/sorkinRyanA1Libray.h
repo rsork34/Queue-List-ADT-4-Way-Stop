@@ -52,7 +52,10 @@ Car *makeCar(char * data);
 
 /** Determines if the next car in the queue is ready
 *   to cross the intersection, depends on current time
-*@param 4 Queues for the lanes in an array
+*@param Queue for the north lane
+*@param Queue for the east lane
+*@param Queue for the south lane
+*@param Queue for the west lane
 *@param the current simulation time
 *@return a pointer to the car whos turn it is
 **/
@@ -60,10 +63,14 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
 
 /** "Move" the car across the intersection and increase the simulation
 *   timer depending on the direction the car went
-*@param the node in the list of the car thats turn it is
+*@param Queue for the north lane
+*@param Queue for the east lane
+*@param Queue for the south lane
+*@param Queue for the west lane
+*@param A pointer to the node of the current car going
 *@param a pointer to the simulation timer
 **/
-void moveCar(Node * node, float * counter);
+void moveCar(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, Node * node, float * counter);
 
 /** Keeps track of total wait time per lane and cars traveled per lane
 *@param The current car that is going across the intersection
@@ -81,7 +88,7 @@ void waitPerLane(Node * node, float lanes[2][4], float counter);
 **/
 void printStats(float lanes[2][4], float counter, float maxWait, int carCounter);
 
-void updateWaitTime(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter);
+void updateWaitTime(Queue * toUpdate, float counter, float travelTime);
 
 
 #endif

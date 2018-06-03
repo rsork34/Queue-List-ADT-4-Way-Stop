@@ -44,6 +44,7 @@ int main(int argc, char ** argv)
   void (*deleteFunction)(void *toBeDeleted) = &deleteCar;
   int (*compareFunction)(const void *first,const void *second) = &compareCars;
 
+  // Initialize a list for each direction
   carListNorth = initializeList(printFunction, deleteFunction, compareFunction);
   carListEast = initializeList(printFunction, deleteFunction, compareFunction);
   carListSouth = initializeList(printFunction, deleteFunction, compareFunction);
@@ -121,11 +122,11 @@ int main(int argc, char ** argv)
       {
         maxWait = counter - curCar->arrivalTime;
       }
-      updateWaitTime(carQueueArray[0], carQueueArray[1], carQueueArray[2], carQueueArray[3], counter);
-      // Move the car and print out its details
+      // Move the car, print out its details, update wait time
+      // for other cars
       printCarData((void*)curNode); // Print data
       waitPerLane(curNode, lanes, counter); // Increase counter for each lane
-      moveCar(curNode, &counter); // Increase counter
+      moveCar(carQueueArray[0], carQueueArray[1], carQueueArray[2], carQueueArray[3], curNode, &counter); // Increase counter
 
       // Remove car from correct queue
       if (curCar->comingFrom[0] == 'N')
