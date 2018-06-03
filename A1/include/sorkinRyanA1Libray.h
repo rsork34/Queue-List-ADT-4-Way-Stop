@@ -81,4 +81,7 @@ void waitPerLane(Node * node, float lanes[2][4], float counter);
 **/
 void printStats(float lanes[2][4], float counter, float maxWait, int carCounter);
 
+void updateWaitTime(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter);
+
+
 #endif

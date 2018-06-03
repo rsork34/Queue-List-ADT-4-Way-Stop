@@ -138,10 +138,29 @@ Car *makeCar(char * data)
 
 Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter)
 {
-  Node * nodeN = (Node*)northQueue->theList->head;
-  Node * nodeE = (Node*)eastQueue->theList->head;
-  Node * nodeS = (Node*)southQueue->theList->head;
-  Node * nodeW = (Node*)westQueue->theList->head;
+  Node * nodeN; = (Node*)northQueue->theList->head;
+  Node * nodeE; = (Node*)eastQueue->theList->head;
+  Node * nodeS; = (Node*)southQueue->theList->head;
+  Node * nodeW; = (Node*)westQueue->theList->head;
+
+  // Check that valid queues were passedin, and set
+  // the current node from each queue
+  if (northQueue && northQueue->theList)
+  {
+    nodeN = northQueue->front;
+  }
+  if (eastQueue && eastQueue->theList)
+  {
+    nodeE = eastQueue->front;
+  }
+  if (southQueue && southQueue->theList)
+  {
+    nodeS = southQueue->front;
+  }
+  if (westQueue && westQueue->theList)
+  {
+    nodeW = westQueue->front;
+  }
 
   // If there are 4 cars in the intersection going at once
   // North goes
@@ -510,5 +529,18 @@ void printStats(float lanes[2][4], float counter, float maxWait, int carCounter)
   else // Calculate and display West lane wait time
   {
     printf("Average wait time WEST  lane: %.2f seconds\n", (lanes[0][3] / lanes[1][3]));
+  }
+}
+
+void updateWaitTime(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter)
+{
+  Node * nodeN;
+  Node * nodeE;
+  Node * nodeS;
+  Node * nodeW;
+
+  if (northQueue && northQueue->theList)
+  {
+    nodeN = northQueue->front;
   }
 }

@@ -126,7 +126,24 @@ int main(int argc, char ** argv)
       printCarData((void*)curNode); // Print data
       waitPerLane(curNode, lanes, counter); // Increase counter for each lane
       moveCar(curNode, &counter); // Increase counter
-      //dequeue(carQueue); // Remove car from front of queue
+
+      // Remove car from correct queue
+      if (curCar->comingFrom[0] == 'N')
+      {
+        dequeue(carQueueArray[0]);
+      }
+      else if (curCar->comingFrom[0] == 'E')
+      {
+        dequeue(carQueueArray[1]);
+      }
+      else if (curCar->comingFrom[0] == 'S')
+      {
+        dequeue(carQueueArray[2]);
+      }
+      else
+      {
+        dequeue(carQueueArray[3]);
+      }
 
       // Increment car counter
       carCounter++;
