@@ -1,0 +1,56 @@
+Name: Ryan Sorkin
+Student #: 1012611
+Email: rsorkin@uoguelph.ca
+
+Description: This program was a project for CIS*2250. For it
+I created a Linked List ADT and a Queue ADT. Utilizing these, I
+created a 4 way stop traffic simulator that reads in car
+information from a file and determines the order of cars through
+the intersection. It also keeps track of stats such as: longest
+wait time, avergae wait time, and the average wait time for
+each lane
+
+Right Of Way Rules: To make this work I made some assumptions for
+the right of way for when multiple cars arrive at the same time.
+If there are 4 cars then the car from the North lane goes first.
+If there are 3 cars at the same time then the right-most car goes
+first.
+If there are 2 cars opposite eachother both are turning or going
+straigt, N/S or E/W, North or East go first, respectively.
+If the two cars are opposite and one is turning while the other
+is going straight, the car going straight goes first
+If the two cars are not opposite, the right-most car goes first
+
+Assumption: During a cars travel time across the intersection,
+the car behind it will take 1 second to move up, so its wait time
+at the stop with be the previous cars travel time - 1 second
+
+makefile: type make to compile the simulation, running it requires
+a file to read in with car info
+Type make test to get a test file of the Queue ADT
+
+Complexity:
+
+Create function: O(N). The function itself is O(1) but it calls
+getLength() which is O(N) due to going through the entire list, so
+O(1) * O(N) = O(N)
+
+Destroy function: O(N). The function itself is O(1) but it calls
+deleteList() which is O(N) due to deleting the whole list, 1 node
+at a time. So, O(1) * O(N) = O(N)
+
+Add function: O(N). The function itself is O(1) but it calls
+insertBack which is O(N) due to having to go through the entire
+list, 1 node at a time. So, O(1) * O(N) = O(N)
+
+Dequeue function: O(1). It only goes through each line once as it
+does not have to iterate through any loops. The functions it uses
+are O(1) as they also do not loop, as they work with the front
+of the queue
+
+Get Length function: O(N). The function itself is O(1) but it calls
+getLength() which is O(N) due to going through the entire list, so
+O(1) * O(N) = O(N)
+
+isEmpty function: O(1). The function never loops and at the furthest
+looks at the first element in the queue, making it O(1)

@@ -1,0 +1,152 @@
+\hypertarget{queueAPI_8h}{}\section{include/queue\+A\+PI.h File Reference}
+\label{queueAPI_8h}\index{include/queue\+A\+P\+I.\+h@{include/queue\+A\+P\+I.\+h}}
+
+
+File containing the function definitions of a queue.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Linked\+List\+A\+P\+I.\+h\char`\"{}}\newline
+Include dependency graph for queue\+A\+P\+I.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{queueAPI_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{queueAPI_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structQueue}{Queue}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structQueue}{Queue} \hyperlink{queueAPI_8h_ad4f29a362a072ba563b41ae8e935c6fc}{Queue}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structQueue}{Queue} $\ast$ \hyperlink{queueAPI_8h_ac40478244e5c37e8dca06fa3e3b7c6fe}{create} (List $\ast$list)
+\item 
+void \hyperlink{queueAPI_8h_ab140f2bb51a79ba1e396a3346db0ef06}{destroy} (\hyperlink{structQueue}{Queue} $\ast$queue)
+\item 
+void \hyperlink{queueAPI_8h_a2880857fd76132b3402354ea78dff7ff}{add} (\hyperlink{structQueue}{Queue} $\ast$queue, void $\ast$data)
+\item 
+void $\ast$ \hyperlink{queueAPI_8h_a0133c7e4da948f6a9368a0b0c4e2fbf9}{dequeue} (\hyperlink{structQueue}{Queue} $\ast$queue)
+\item 
+int \hyperlink{queueAPI_8h_a2a0de0f79d046b25877028a89858f843}{length} (\hyperlink{structQueue}{Queue} $\ast$queue)
+\item 
+int \hyperlink{queueAPI_8h_ae2701ab012e9ff60a04d6ffd07a42e1b}{is\+Empty} (\hyperlink{structQueue}{Queue} $\ast$queue)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containing the function definitions of a queue. 
+
+\begin{DoxyAuthor}{Author}
+Ryan Sorkin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+May 2018 
+\end{DoxyDate}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{queueAPI_8h_ad4f29a362a072ba563b41ae8e935c6fc}\label{queueAPI_8h_ad4f29a362a072ba563b41ae8e935c6fc}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!Queue@{Queue}}
+\index{Queue@{Queue}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{Queue}{Queue}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structQueue}{Queue} \hyperlink{structQueue}{Queue}}
+
+A struct for the \hyperlink{structQueue}{Queue} A\+DT 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{queueAPI_8h_a2880857fd76132b3402354ea78dff7ff}\label{queueAPI_8h_a2880857fd76132b3402354ea78dff7ff}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!add@{add}}
+\index{add@{add}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void add (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{queue,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+Function to add a pointer to any data to the queue Adds data to the end of the queue 
+\begin{DoxyParams}{Parameters}
+{\em queue} & A\+DT with memory allocated to it \\
+\hline
+{\em data} & to a void pointer to data that is non N\+U\+LL \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{queueAPI_8h_ac40478244e5c37e8dca06fa3e3b7c6fe}\label{queueAPI_8h_ac40478244e5c37e8dca06fa3e3b7c6fe}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!create@{create}}
+\index{create@{create}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{create()}{create()}}
+{\footnotesize\ttfamily \hyperlink{structQueue}{Queue}$\ast$ create (\begin{DoxyParamCaption}\item[{List $\ast$}]{list }\end{DoxyParamCaption})}
+
+Function to allocate memory and return a queue A\+DT that will encapsulate a list A\+DT \begin{DoxyReturn}{Returns}
+pointer to the \hyperlink{structQueue}{Queue} which has memory allocated to it 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em list} & struct that has the contents of the queue \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{queueAPI_8h_a0133c7e4da948f6a9368a0b0c4e2fbf9}\label{queueAPI_8h_a0133c7e4da948f6a9368a0b0c4e2fbf9}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!dequeue@{dequeue}}
+\index{dequeue@{dequeue}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{dequeue()}{dequeue()}}
+{\footnotesize\ttfamily void$\ast$ dequeue (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Removes the front item in the \hyperlink{structQueue}{Queue} and returns it 
+\begin{DoxyParams}{Parameters}
+{\em queue} & A\+DT with memory allocated to it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A void pointer to data from the front of the queue 
+\end{DoxyReturn}
+\mbox{\Hypertarget{queueAPI_8h_ab140f2bb51a79ba1e396a3346db0ef06}\label{queueAPI_8h_ab140f2bb51a79ba1e396a3346db0ef06}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!destroy@{destroy}}
+\index{destroy@{destroy}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{destroy()}{destroy()}}
+{\footnotesize\ttfamily void destroy (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Function to destroy and free all memory allocated for the \hyperlink{structQueue}{Queue} 
+\begin{DoxyParams}{Parameters}
+{\em queue} & A\+DT with memory allocated to it \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{queueAPI_8h_ae2701ab012e9ff60a04d6ffd07a42e1b}\label{queueAPI_8h_ae2701ab012e9ff60a04d6ffd07a42e1b}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!is\+Empty@{is\+Empty}}
+\index{is\+Empty@{is\+Empty}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{is\+Empty()}{isEmpty()}}
+{\footnotesize\ttfamily int is\+Empty (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Function to determine if the queue is empty or not Returns 1 if list is null or empty, 0 otherwise 
+\begin{DoxyParams}{Parameters}
+{\em queue} & A\+DT with memory allocated to it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An int to represent true or false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{queueAPI_8h_a2a0de0f79d046b25877028a89858f843}\label{queueAPI_8h_a2a0de0f79d046b25877028a89858f843}} 
+\index{queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}!length@{length}}
+\index{length@{length}!queue\+A\+P\+I.\+h@{queue\+A\+P\+I.\+h}}
+\subsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily int length (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+A function to determine the number of items in a queue 
+\begin{DoxyParams}{Parameters}
+{\em queue} & A\+DT with memory allocated to it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Length of the queue as an int 
+\end{DoxyReturn}

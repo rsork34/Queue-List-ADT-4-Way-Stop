@@ -60,9 +60,13 @@ void deleteCar(void * data)
 
   // Delete and free node
   Node * temp = (Node*)data;
+  if (temp->data)
+  {
+    Car * car = (Car*)temp->data;
+    free(car);
+  }
   temp->next = NULL;
   temp->previous = NULL;
-  free(temp->data);
   free(temp);
 }
 
@@ -139,10 +143,10 @@ Car *makeCar(char * data)
 
 Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue * westQueue, float counter)
 {
-  Node * nodeN;
-  Node * nodeE;
-  Node * nodeS;
-  Node * nodeW;
+  Node * nodeN = NULL;
+  Node * nodeE = NULL;
+  Node * nodeS = NULL;
+  Node * nodeW = NULL;
 
   // Check that valid queues were passed in, and set
   // the current node from each queue
@@ -268,6 +272,10 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
       {
         return nodeS;
       }
+      else if (carS->direction[0] != 'F' && carN->direction[0] != 'F')
+      {
+        return nodeN;
+      }
     }
   }
 
@@ -292,6 +300,10 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
       }
       // West going straight, East turning, West goes
       else if (carW->direction[0] == 'F' && carE->direction[0] != 'F')
+      {
+        return nodeW;
+      }
+      else if (carW->direction[0] != 'F' && carE->direction[0] != 'F')
       {
         return nodeW;
       }
@@ -397,7 +409,6 @@ Node *getTurn(Queue * northQueue, Queue * eastQueue, Queue * southQueue, Queue *
 
       if (maxWait < carW->waitTime)
       {
-        maxWait = carW->waitTime;
         going = 'W';
       }
     }
@@ -502,7 +513,7 @@ void printStats(float lanes[2][4], float counter, float maxWait, int carCounter)
   printf("*                STATS                *\n");
   printf("***************************************\n");
 
-  printf("Longest wait time %.2f seconds\n", maxWait);
+  printf("Longest wait time: %.2f seconds\n", maxWait);
 
   // Calculate and display total average wait time
   for (int i = 0; i < 4; i++)
@@ -514,52 +525,51 @@ void printStats(float lanes[2][4], float counter, float maxWait, int carCounter)
   // Wait time for north lane
   if (lanes[1][0] == 0) // Total wait time was 0
   {
-    printf("Average wait time NORTH lane: 0 seconds\n");
+    printf("Average wait time going NORTH: 0 seconds\n");
   }
   else // Calculate and display North lane wait time
   {
-    printf("Average wait time NORTH lane: %.2f seconds\n", (lanes[0][0] / lanes[1][0]));
+    printf("Average wait time going NORTH: %.2f seconds\n", (lanes[0][0] / lanes[1][0]));
   }
 
   // Wait time for east lane
   if (lanes[1][1] == 0) // Total wait time was 0
   {
-    printf("Average wait time EAST  lane: 0 seconds\n");
+    printf("Average wait time going  EAST: 0 seconds\n");
   }
   else // Calculate and display East lane wait time
   {
-    printf("Average wait time EAST  lane: %.2f seconds\n", (lanes[0][1] / lanes[1][1]));
+    printf("Average wait time going  EAST: %.2f seconds\n", (lanes[0][1] / lanes[1][1]));
   }
 
   // Wait time south lane
   if (lanes[1][2] == 0) // Total wait time was 0
   {
-    printf("Average wait time SOUTH lane: 0 seconds\n");
+    printf("Average wait time going SOUTH: 0 seconds\n");
   }
   else // Calculate and display South lane wait time
   {
-    printf("Average wait time SOUTH lane: %.2f seconds\n", (lanes[0][2] / lanes[1][2]));
+    printf("Average wait time going SOUTH: %.2f seconds\n", (lanes[0][2] / lanes[1][2]));
   }
 
   // Wait time west lane
   if (lanes[1][3] == 0) // Total wait time was 0
   {
-    printf("Average wait time WEST  lane: 0 seconds\n");
+    printf("Average wait time going  WEST: 0 seconds\n");
   }
   else // Calculate and display West lane wait time
   {
-    printf("Average wait time WEST  lane: %.2f seconds\n", (lanes[0][3] / lanes[1][3]));
+    printf("Average wait time going  WEST: %.2f seconds\n", (lanes[0][3] / lanes[1][3]));
   }
 }
 
 void updateWaitTime(Queue * toUpdate, float counter, float travTime)
 {
   // If there is a car in the front of a queue to update
-  Node * tempNode;
   if (toUpdate && toUpdate->front)
   {
     // Cast the node to a car struct
-    tempNode = toUpdate->front;
+    Node * tempNode = toUpdate->front;
     Car * tempCar = (Car*)tempNode->data;
 
     // If there is a valid car and the car has arrived at the queue

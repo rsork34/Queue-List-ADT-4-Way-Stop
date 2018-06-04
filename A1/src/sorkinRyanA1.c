@@ -163,5 +163,6 @@ int main(int argc, char ** argv)
   destroy(carQueueWest);
 
   printStats(lanes, counter, maxWait, carCounter);
+
   return 0;
 }

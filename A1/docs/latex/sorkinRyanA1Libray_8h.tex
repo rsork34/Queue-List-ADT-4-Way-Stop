@@ -1,0 +1,211 @@
+\hypertarget{sorkinRyanA1Libray_8h}{}\section{include/sorkin\+Ryan\+A1\+Libray.h File Reference}
+\label{sorkinRyanA1Libray_8h}\index{include/sorkin\+Ryan\+A1\+Libray.\+h@{include/sorkin\+Ryan\+A1\+Libray.\+h}}
+
+
+File containing the functions to be used in assignment 1 that are not to be used in either list or queue A\+DT. Also includes car struct.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Linked\+List\+A\+P\+I.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}queue\+A\+P\+I.\+h\char`\"{}}\newline
+Include dependency graph for sorkin\+Ryan\+A1\+Libray.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=305pt]{sorkinRyanA1Libray_8h__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structcar}{car}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structcar}{car} \hyperlink{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}{Car}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_a80c8f2163fcaedba3683bf1593cbc744}{print\+Car\+Data} (void $\ast$data)
+\item 
+int \hyperlink{sorkinRyanA1Libray_8h_a00f47305e5583254cb8fa41544525684}{compare\+Cars} (const void $\ast$first, const void $\ast$second)
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_a4528b0a7192141fc985f72a8c8e757c1}{delete\+Car} (void $\ast$data)
+\item 
+\hyperlink{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}{Car} $\ast$ \hyperlink{sorkinRyanA1Libray_8h_a6590d516be6c90b9fccc4da7b62d9606}{make\+Car} (char $\ast$data)
+\item 
+Node $\ast$ \hyperlink{sorkinRyanA1Libray_8h_a02d9f8d6da079c2c86ed175b2f2f2e80}{get\+Turn} (\hyperlink{structQueue}{Queue} $\ast$north\+Queue, \hyperlink{structQueue}{Queue} $\ast$east\+Queue, \hyperlink{structQueue}{Queue} $\ast$south\+Queue, \hyperlink{structQueue}{Queue} $\ast$west\+Queue, float counter)
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_a710bbf461a8f8c8014172c6e88521687}{move\+Car} (\hyperlink{structQueue}{Queue} $\ast$north\+Queue, \hyperlink{structQueue}{Queue} $\ast$east\+Queue, \hyperlink{structQueue}{Queue} $\ast$south\+Queue, \hyperlink{structQueue}{Queue} $\ast$west\+Queue, Node $\ast$node, float $\ast$counter)
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_aa4f1ee86b74be5deb65422cb80788e9b}{wait\+Per\+Lane} (Node $\ast$node, float lanes\mbox{[}2\mbox{]}\mbox{[}4\mbox{]}, float counter)
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_a13cdb53bb7789345dced3e8358b06375}{print\+Stats} (float lanes\mbox{[}2\mbox{]}\mbox{[}4\mbox{]}, float counter, float max\+Wait, int car\+Counter)
+\item 
+void \hyperlink{sorkinRyanA1Libray_8h_abfd100616b7bb5f6fa926d5a5c8d0a37}{update\+Wait\+Time} (\hyperlink{structQueue}{Queue} $\ast$to\+Update, float counter, float travel\+Time)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+File containing the functions to be used in assignment 1 that are not to be used in either list or queue A\+DT. Also includes car struct. 
+
+\begin{DoxyAuthor}{Author}
+Ryan Sorkin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+June 2018 
+\end{DoxyDate}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}\label{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!Car@{Car}}
+\index{Car@{Car}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{Car}{Car}}
+{\footnotesize\ttfamily typedef struct \hyperlink{structcar}{car}  \hyperlink{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}{Car}}
+
+Car struct that is meant to go inside the queue for the assignment simulation 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a00f47305e5583254cb8fa41544525684}\label{sorkinRyanA1Libray_8h_a00f47305e5583254cb8fa41544525684}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!compare\+Cars@{compare\+Cars}}
+\index{compare\+Cars@{compare\+Cars}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{compare\+Cars()}{compareCars()}}
+{\footnotesize\ttfamily int compare\+Cars (\begin{DoxyParamCaption}\item[{const void $\ast$}]{first,  }\item[{const void $\ast$}]{second }\end{DoxyParamCaption})}
+
+Compare the arrival time of two cars, return\+: 0 if they arrived at the same time 1 if car 1 arrived first -\/1 if car 1 arrived second 
+\begin{DoxyParams}{Parameters}
+{\em first} & void pointer to first car to be compared \\
+\hline
+{\em second} & void pointer to second car to be compared \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a4528b0a7192141fc985f72a8c8e757c1}\label{sorkinRyanA1Libray_8h_a4528b0a7192141fc985f72a8c8e757c1}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!delete\+Car@{delete\+Car}}
+\index{delete\+Car@{delete\+Car}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{delete\+Car()}{deleteCar()}}
+{\footnotesize\ttfamily void delete\+Car (\begin{DoxyParamCaption}\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+Free the memory associated with a car 
+\begin{DoxyParams}{Parameters}
+{\em data} & to a void pointer to Car$\ast$ to be freed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a02d9f8d6da079c2c86ed175b2f2f2e80}\label{sorkinRyanA1Libray_8h_a02d9f8d6da079c2c86ed175b2f2f2e80}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!get\+Turn@{get\+Turn}}
+\index{get\+Turn@{get\+Turn}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{get\+Turn()}{getTurn()}}
+{\footnotesize\ttfamily Node$\ast$ get\+Turn (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{north\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{east\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{south\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{west\+Queue,  }\item[{float}]{counter }\end{DoxyParamCaption})}
+
+Determines if the next car in the queue is ready to cross the intersection, depends on current time 
+\begin{DoxyParams}{Parameters}
+{\em north\+Queue} & the queue of cars coming from North \\
+\hline
+{\em east\+Queue} & the queue of cars coming from East \\
+\hline
+{\em south\+Queue} & the queue of cars coming from South \\
+\hline
+{\em west\+Queue} & the queue of cars coming from West \\
+\hline
+{\em counter} & is the current simulation time \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to the car whos turn it is 
+\end{DoxyReturn}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a6590d516be6c90b9fccc4da7b62d9606}\label{sorkinRyanA1Libray_8h_a6590d516be6c90b9fccc4da7b62d9606}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!make\+Car@{make\+Car}}
+\index{make\+Car@{make\+Car}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{make\+Car()}{makeCar()}}
+{\footnotesize\ttfamily \hyperlink{sorkinRyanA1Libray_8h_a367f8f21caa33f1a5af286dfb673d34a}{Car}$\ast$ make\+Car (\begin{DoxyParamCaption}\item[{char $\ast$}]{data }\end{DoxyParamCaption})}
+
+Create and return a car based on info read from file 
+\begin{DoxyParams}{Parameters}
+{\em data} & pointer to string read in from file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer to allocated memory to a Car struct 
+\end{DoxyReturn}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a710bbf461a8f8c8014172c6e88521687}\label{sorkinRyanA1Libray_8h_a710bbf461a8f8c8014172c6e88521687}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!move\+Car@{move\+Car}}
+\index{move\+Car@{move\+Car}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{move\+Car()}{moveCar()}}
+{\footnotesize\ttfamily void move\+Car (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{north\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{east\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{south\+Queue,  }\item[{\hyperlink{structQueue}{Queue} $\ast$}]{west\+Queue,  }\item[{Node $\ast$}]{node,  }\item[{float $\ast$}]{counter }\end{DoxyParamCaption})}
+
+\char`\"{}\+Move\char`\"{} the car across the intersection and increase the simulation timer depending on the direction the car went 
+\begin{DoxyParams}{Parameters}
+{\em north\+Queue} & the queue of cars coming from North \\
+\hline
+{\em east\+Queue} & the queue of cars coming from East \\
+\hline
+{\em south\+Queue} & the queue of cars coming from South \\
+\hline
+{\em west\+Queue} & the queue of cars coming from West \\
+\hline
+{\em node} & that holds the current car going \\
+\hline
+{\em counter} & pointer of the simulation timer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a80c8f2163fcaedba3683bf1593cbc744}\label{sorkinRyanA1Libray_8h_a80c8f2163fcaedba3683bf1593cbc744}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!print\+Car\+Data@{print\+Car\+Data}}
+\index{print\+Car\+Data@{print\+Car\+Data}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{print\+Car\+Data()}{printCarData()}}
+{\footnotesize\ttfamily void print\+Car\+Data (\begin{DoxyParamCaption}\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+
+Once a car is passed in its information is printed 
+\begin{DoxyParams}{Parameters}
+{\em data} & to a void pointer, expected to be a Car $\ast$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_a13cdb53bb7789345dced3e8358b06375}\label{sorkinRyanA1Libray_8h_a13cdb53bb7789345dced3e8358b06375}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!print\+Stats@{print\+Stats}}
+\index{print\+Stats@{print\+Stats}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{print\+Stats()}{printStats()}}
+{\footnotesize\ttfamily void print\+Stats (\begin{DoxyParamCaption}\item[{float}]{lanes\mbox{[}2\mbox{]}\mbox{[}4\mbox{]},  }\item[{float}]{counter,  }\item[{float}]{max\+Wait,  }\item[{int}]{car\+Counter }\end{DoxyParamCaption})}
+
+Display stats regarding the simulation\+: Total time, longest wait, ave wait, ave wait per lane 
+\begin{DoxyParams}{Parameters}
+{\em lanes} & that stores a 2D array to keep track of total travel time, cars traveled per lane \\
+\hline
+{\em counter} & to the simulation time \\
+\hline
+{\em max\+Wait} & is the longest wait time so far \\
+\hline
+{\em car\+Counter} & is the number of cars that have travelled through the simulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_abfd100616b7bb5f6fa926d5a5c8d0a37}\label{sorkinRyanA1Libray_8h_abfd100616b7bb5f6fa926d5a5c8d0a37}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!update\+Wait\+Time@{update\+Wait\+Time}}
+\index{update\+Wait\+Time@{update\+Wait\+Time}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{update\+Wait\+Time()}{updateWaitTime()}}
+{\footnotesize\ttfamily void update\+Wait\+Time (\begin{DoxyParamCaption}\item[{\hyperlink{structQueue}{Queue} $\ast$}]{to\+Update,  }\item[{float}]{counter,  }\item[{float}]{travel\+Time }\end{DoxyParamCaption})}
+
+Updates the time that those at the front of each lane have waited for their turn 
+\begin{DoxyParams}{Parameters}
+{\em to\+Update} & is the \hyperlink{structQueue}{Queue} that needs to be updated \\
+\hline
+{\em counter} & to the simulation time \\
+\hline
+{\em travel\+Time} & how long the car going across the intersection takes to travel \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{sorkinRyanA1Libray_8h_aa4f1ee86b74be5deb65422cb80788e9b}\label{sorkinRyanA1Libray_8h_aa4f1ee86b74be5deb65422cb80788e9b}} 
+\index{sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}!wait\+Per\+Lane@{wait\+Per\+Lane}}
+\index{wait\+Per\+Lane@{wait\+Per\+Lane}!sorkin\+Ryan\+A1\+Libray.\+h@{sorkin\+Ryan\+A1\+Libray.\+h}}
+\subsubsection{\texorpdfstring{wait\+Per\+Lane()}{waitPerLane()}}
+{\footnotesize\ttfamily void wait\+Per\+Lane (\begin{DoxyParamCaption}\item[{Node $\ast$}]{node,  }\item[{float}]{lanes\mbox{[}2\mbox{]}\mbox{[}4\mbox{]},  }\item[{float}]{counter }\end{DoxyParamCaption})}
+
+Keeps track of total wait time per lane and cars traveled per lane 
+\begin{DoxyParams}{Parameters}
+{\em node} & that stores the current car that is going across the intersection \\
+\hline
+{\em lanes} & that stores a 2D array to keep track of total travel time, cars traveled per lane \\
+\hline
+{\em counter} & to a simulation timer, to calculate wait time \\
+\hline
+\end{DoxyParams}

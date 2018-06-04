@@ -109,9 +109,7 @@ void deleteList(List *list)
     Node * temp = list->head;
     list->head = list->head->next;
 
-    temp->next = NULL;
-    temp->previous = NULL;
-    free(temp);
+    list->deleteData((void*)temp);
   }
   free(list);
 }
@@ -173,6 +171,8 @@ int deleteDataFromList(List *list, void *toBeDeleted)
 
   // Temp node to keep track of current node
   Node * temp = list->head;
+
+
 
   // Iterate until the end of the list
   while (temp)

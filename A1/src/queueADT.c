@@ -45,9 +45,14 @@ void add(Queue * queue, void * data)
     return;
   }
 
+  if (queue->front == NULL)
+  {
+    queue->front = (Node*)data;
+  }
+
   // Add data to back of queue and update queue length
   insertBack(queue->theList, data);
-  queue->back = data;
+  queue->back = (Node*)data;
   queue->length++;
 }
 
@@ -59,10 +64,16 @@ void * dequeue(Queue * queue)
     return NULL;
   }
 
-  // Find first Node in list and remove it, update Queue
-  void * toRemove = getFromFront(queue->theList);
-  deleteDataFromList(queue->theList, toRemove);
-  queue->front = getFromFront(queue->theList);
+  // Find first Node in list to be removed
+  Node * toRemove = getFromFront(queue->theList);
+
+  // Delete the first item in the list
+  deleteDataFromList(queue->theList, (void*)toRemove);
+
+  // Set the new front of the queue to the new head of the list
+  queue->front = (Node*)getFromFront(queue->theList);
+
+  // Decrease queue length for item lost
   queue->length--;
 
   return toRemove;
@@ -83,7 +94,7 @@ int length(Queue * queue)
 int isEmpty(Queue * queue)
 {
   // Return 1 if list is NULL or empty
-  if (queue == NULL || queue->front == NULL)
+  if (queue == NULL || !queue->front)
   {
     return 1;
   }
